@@ -1,29 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 
 import ExpenseDate from "./ExpenseDate";
 import Card from "../UI/Card";
 import "./ExpenseItem.css";
 
 const ExpenseItem = (props) => {
+  const [title, setTitle] = useState(props.title);
+  const [amount, setAmount] = useState(props.amount);
   const clickHandler = (e) => {
-    const id = e.target.id;
-
-    const expenseItem = e.target.closest(".expense-item");
-
-    if (expenseItem) {
-      expenseItem.remove();
-      console.log("ExpenseItem removed:", id);
-    }
+    setTitle("Updated");
+  };
+  const updateAmt = () => {
+    setAmount("100 $");
   };
   return (
     <Card className="expense-item" id={props.id}>
       <ExpenseDate date={props.date} />
       <div className="expense-item__description">
-        <h2>{props.title}</h2>
-        <div className="expense-item__price">${props.amount}</div>
+        <h2>{title}</h2>
+        <div className="expense-item__price">${amount}</div>
       </div>
       <button onClick={clickHandler} id={props.id}>
         Change Title
+      </button>
+      <button onClick={updateAmt} id={props.id}>
+        Change Amt
       </button>
     </Card>
   );
