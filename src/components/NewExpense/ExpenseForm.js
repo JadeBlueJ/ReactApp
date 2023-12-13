@@ -4,6 +4,9 @@ const ExpenseForm = (props) => {
   const [title, enteredTitle] = useState("");
   const [amount, enteredAmount] = useState("");
   const [date, enteredDate] = useState("");
+
+  const [showForm, setShowForm] = useState(false);
+
   // const [userInput, setUserInput]=useState({
   //   enteredTitle:'',
   //   enteredAmount:'',
@@ -38,8 +41,19 @@ const ExpenseForm = (props) => {
     enteredTitle("");
     enteredAmount("");
     enteredDate("");
+    disableShowForm();
   };
-  return (
+  const enableShowForm = () => {
+    setShowForm(true);
+  };
+  const disableShowForm = () => {
+    setShowForm(false);
+  };
+  return showForm === false ? (
+    <button className="new-expense__actions" onClick={enableShowForm}>
+      Add Expense
+    </button>
+  ) : (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
@@ -68,6 +82,7 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button onClick={disableShowForm}>Cancel</button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
